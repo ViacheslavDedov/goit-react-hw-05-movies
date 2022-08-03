@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getMovieDetails } from 'services/moviesApi';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import image from 'images/notFound.jpg';
 
 export const useFetchItem = () => {
@@ -13,6 +13,7 @@ export const useFetchItem = () => {
   const [rating, setRating] = useState('');
 
   const { itemId } = useParams();
+  const novigate = useNavigate();
 
   useEffect(() => {
     const fetchTrendingMovies = async () => {
@@ -41,13 +42,16 @@ export const useFetchItem = () => {
         setGenres(itemGenres);
         setRating(itemRange);
       } catch (error) {
-        console.log(error);
+        if (error.response.status === 404) {
+          alert('No movie on this request');
+          novigate('/', { replace: true });
+        }
       } finally {
         setLoading(false);
       }
     };
 
     fetchTrendingMovies();
-  }, [itemId]);
+  }, [itemId, novigate]);
   return { item, loading, title, poster, release, genres, rating };
 };
