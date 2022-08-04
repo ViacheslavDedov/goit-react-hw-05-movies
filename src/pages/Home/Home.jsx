@@ -1,31 +1,11 @@
 import { Link } from 'react-router-dom';
 import Loader from 'components/Loader/Loader';
 import { useFetchTrendingMovies } from 'hooks/useFetchTrendingMovies';
-// import { getTrendingMovies } from 'services/moviesApi';
-// import { useState, useEffect } from 'react';
 
 const Home = () => {
 
   const { items, loading } = useFetchTrendingMovies();
-
-  // const [items, setItems] = useState([]);
-  // const [loading, setLoading] = useState(false);
-
-  // useEffect(() => {
-  //   const fetchTrendingMovies = async () => {
-  //     setLoading(true);
-  //     try {
-  //       const itemsData = await getTrendingMovies();
-  //       setItems(itemsData);
-  //     } catch (error) {
-  //       console.log(error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  //   fetchTrendingMovies();
-  // }, []);
-  
+ 
   return (
     <main>
       {loading && <Loader />}
